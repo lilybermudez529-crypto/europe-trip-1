@@ -1,0 +1,118 @@
+<div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #fdfaf5; padding: 40px 20px; border-radius: 15px; border: 1px solid #e0d7c6; color: #4a4238; max-width: 950px; margin: auto; box-shadow: 0 15px 40px rgba(0,0,0,0.12);">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <h2 style="margin: 0; color: #2c3e50; text-transform: uppercase; letter-spacing: 3px;">Summer 2027 Expedition</h2>
+    <div style="width: 60px; height: 3px; background: #bc9c6c; margin: 10px auto;"></div>
+    <p style="color: #7f8c8d;">May 1st — August 1st, 2027</p>
+  </div>
+
+  <div style="position: relative; width: 100%; height: 500px; background: #f0f7f9; border-radius: 12px; border: 1px solid #d1e1e8; overflow: hidden;">
+    
+    <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 1;">
+      <path id="travelPath" d="M 60 380 L 110 370 L 180 320 L 260 260 L 340 230 L 450 180 L 550 200 L 480 120 L 200 80 L 180 120 C 300 250 500 450 780 320" 
+            fill="none" stroke="#bc9c6c" stroke-width="3" stroke-dasharray="10,5" stroke-linecap="round" />
+      
+      <circle r="5" fill="#d81b60">
+        <animateMotion dur="15s" repeatCount="indefinite">
+          <mpath href="#travelPath" />
+        </animateMotion>
+      </circle>
+    </svg>
+
+    <div class="stop" style="top: 372px; left: 52px; background: #27ae60;">
+      <div class="popover"><b>May 1: Start</b><br>Lisbon & Porto. Fresh seafood and Fado music to kick off 2027.</div>
+    </div>
+
+    <div class="stop" style="top: 362px; left: 102px; background: #f39c12;">
+      <div class="popover"><b>Early May: Spain</b><br>Seville, Jaén, and the rugged coast of Galicia & Asturias.</div>
+    </div>
+
+    <div class="stop" style="top: 312px; left: 172px; background: #e67e22;">
+      <div class="popover"><b>Mid May: The Pyrenees</b><br>Through Andorra into the wine estates of Bordeaux.</div>
+    </div>
+
+    <div class="stop pulse" style="top: 252px; left: 252px; background: #d81b60; width: 22px; height: 22px;">
+      <div class="popover" style="border-left: 4px solid #d81b60;"><b>💍 May 29: Paris</b><br>Anniversary #1. Deep museum dive (Louvre/Orsay).</div>
+    </div>
+
+    <div class="stop" style="top: 222px; left: 332px; background: #8e44ad;">
+      <div class="popover"><b>Early June: SE France</b><br>Gastronomy in Lyon and the luxury of Monaco.</div>
+    </div>
+
+    <div class="stop pulse" style="top: 172px; left: 442px; background: #2980b9; width: 22px; height: 22px;">
+      <div class="popover" style="border-left: 4px solid #2980b9;"><b>🥂 June 10: Switzerland</b><br>Anniversary #2. Mont Blanc views & Geneva lakeside.</div>
+    </div>
+
+    <div class="stop" style="top: 192px; left: 542px; background: #16a085;">
+      <div class="popover"><b>Mid June: Central</b><br>Austria, Hungary, Czechia, and Germany.</div>
+    </div>
+
+    <div class="stop" style="top: 112px; left: 472px; background: #c0392b;">
+      <div class="popover"><b>Late June: Benelux</b><br>Amsterdam canals & Belgian chocolate.</div>
+    </div>
+
+    <div class="stop" style="top: 72px; left: 192px; background: #34495e;">
+      <div class="popover"><b>July 1: UK</b><br>London highlights and a road trip through the Scottish Highlands.</div>
+    </div>
+
+    <div class="stop pulse" style="top: 312px; left: 772px; background: #c0392b; width: 28px; height: 28px; border: 3px solid gold;">
+      <div class="popover" style="left: auto; right: 40px; border-right: 4px solid gold;"><b>🎂 July 6: Chihuahua</b><br>The Grand Birthday. Tacos, history, and the Chepe Train journey.</div>
+    </div>
+
+    <div style="position: absolute; bottom: 20px; left: 100px; font-size: 10px; color: #95a5a6; letter-spacing: 5px; opacity: 0.5;">ATLANTIC OCEAN TRANSITION</div>
+
+  </div>
+
+  <div style="margin-top: 20px; display: flex; justify-content: space-between; font-size: 13px; color: #7f8c8d;">
+    <span>🏁 Depart: May 1, 2027</span>
+    <span>✈️ Trans-Atlantic: ~July 4</span>
+    <span>🇲🇽 End: Aug 1, 2027</span>
+  </div>
+
+</div>
+
+<style>
+  .stop {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid white;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+  }
+  .stop:hover {
+    transform: scale(1.4);
+  }
+  .popover {
+    visibility: hidden;
+    width: 220px;
+    background: white;
+    color: #333;
+    padding: 12px;
+    border-radius: 8px;
+    position: absolute;
+    left: 30px;
+    top: -20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    z-index: 100;
+    font-size: 13px;
+    line-height: 1.4;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .stop:hover .popover {
+    visibility: visible;
+    opacity: 1;
+  }
+  .pulse {
+    animation: pulse-ring 2s infinite;
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(188, 156, 108, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(188, 156, 108, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(188, 156, 108, 0); }
+  }
+</style>
