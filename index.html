@@ -4,151 +4,329 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Summer 2027 Expedition</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background: #fdfaf5;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    .card {
+      background: #fdfaf5;
+      padding: 30px 20px;
+      border-radius: 15px;
+      border: 1px solid #e0d7c6;
+      color: #4a4238;
+      max-width: 960px;
+      width: 100%;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .card-header h2 {
       margin: 0;
-      padding: 30px;
-      box-sizing: border-box;
+      color: #2c3e50;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 22px;
     }
 
-    .stop {
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      border: 2px solid white;
-      cursor: pointer;
-      z-index: 10;
-      transition: transform 0.2s ease;
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: #bc9c6c;
+      margin: 10px auto;
     }
 
-    .stop:hover {
-      transform: scale(1.4);
+    .card-header p {
+      color: #7f8c8d;
+      font-size: 14px;
     }
 
-    .popover {
-      visibility: hidden;
-      width: 220px;
-      background: white;
-      color: #333;
-      padding: 12px;
-      border-radius: 8px;
-      position: absolute;
-      left: 30px;
-      top: -20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      z-index: 100;
+    #map {
+      width: 100%;
+      height: 520px;
+      border-radius: 12px;
+      border: 1px solid #d1e1e8;
+      z-index: 0;
+    }
+
+    .card-footer {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
       font-size: 13px;
-      line-height: 1.4;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s;
+      color: #7f8c8d;
     }
 
-    .stop:hover .popover {
-      visibility: visible;
-      opacity: 1;
+    /* Custom popup styling */
+    .leaflet-popup-content-wrapper {
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
-    .pulse {
-      animation: pulse-ring 2s infinite;
+    .leaflet-popup-content b {
+      color: #2c3e50;
+      font-size: 14px;
     }
 
-    @keyframes pulse-ring {
-      0%   { box-shadow: 0 0 0 0 rgba(188, 156, 108, 0.7); }
-      70%  { box-shadow: 0 0 0 15px rgba(188, 156, 108, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(188, 156, 108, 0); }
+    .stop-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #2c3e50;
+      white-space: nowrap;
+    }
+
+    /* Animated dot */
+    .traveling-dot {
+      width: 12px;
+      height: 12px;
+      background: #d81b60;
+      border: 2px solid white;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(216, 27, 96, 0.7);
     }
   </style>
 </head>
 <body>
-  <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #fdfaf5; padding: 40px 20px; border-radius: 15px; border: 1px solid #e0d7c6; color: #4a4238; max-width: 950px; width: 100%; margin: auto; box-shadow: 0 15px 40px rgba(0,0,0,0.12);">
+  <div class="card">
 
-    <div style="text-align: center; margin-bottom: 30px;">
-      <h2 style="margin: 0; color: #2c3e50; text-transform: uppercase; letter-spacing: 3px;">Summer 2027 Expedition</h2>
-      <div style="width: 60px; height: 3px; background: #bc9c6c; margin: 10px auto;"></div>
-      <p style="color: #7f8c8d;">May 1st — August 1st, 2027</p>
+    <div class="card-header">
+      <h2>Summer 2027 Expedition</h2>
+      <div class="divider"></div>
+      <p>May 1st — August 1st, 2027</p>
     </div>
 
-    <div style="position: relative; width: 100%; height: 500px; background: #f0f7f9; border-radius: 12px; border: 1px solid #d1e1e8; overflow: hidden;">
+    <div id="map"></div>
 
-      <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 1;">
-        <path id="travelPath" d="M 60 380 L 110 370 L 180 320 L 260 260 L 340 230 L 450 180 L 550 200 L 480 120 L 200 80 L 180 120 C 300 250 500 450 780 320"
-              fill="none" stroke="#bc9c6c" stroke-width="3" stroke-dasharray="10,5" stroke-linecap="round" />
-
-        <circle r="5" fill="#d81b60">
-          <animateMotion dur="15s" repeatCount="indefinite">
-            <mpath href="#travelPath" />
-          </animateMotion>
-        </circle>
-      </svg>
-
-      <!-- Lisbon & Porto -->
-      <div class="stop" style="top: 372px; left: 52px; background: #27ae60;">
-        <div class="popover"><b>May 1: Start</b><br>Lisbon &amp; Porto. Fresh seafood and Fado music to kick off 2027.</div>
-      </div>
-
-      <!-- Spain -->
-      <div class="stop" style="top: 362px; left: 102px; background: #f39c12;">
-        <div class="popover"><b>Early May: Spain</b><br>Seville, Jaén, and the rugged coast of Galicia &amp; Asturias.</div>
-      </div>
-
-      <!-- Pyrenees -->
-      <div class="stop" style="top: 312px; left: 172px; background: #e67e22;">
-        <div class="popover"><b>Mid May: The Pyrenees</b><br>Through Andorra into the wine estates of Bordeaux.</div>
-      </div>
-
-      <!-- Paris Anniversary -->
-      <div class="stop pulse" style="top: 252px; left: 252px; background: #d81b60; width: 22px; height: 22px;">
-        <div class="popover" style="border-left: 4px solid #d81b60;"><b>💍 May 29: Paris</b><br>Anniversary #1. Deep museum dive (Louvre/Orsay).</div>
-      </div>
-
-      <!-- SE France -->
-      <div class="stop" style="top: 222px; left: 332px; background: #8e44ad;">
-        <div class="popover"><b>Early June: SE France</b><br>Gastronomy in Lyon and the luxury of Monaco.</div>
-      </div>
-
-      <!-- Switzerland Anniversary -->
-      <div class="stop pulse" style="top: 172px; left: 442px; background: #2980b9; width: 22px; height: 22px;">
-        <div class="popover" style="border-left: 4px solid #2980b9;"><b>🥂 June 10: Switzerland</b><br>Anniversary #2. Mont Blanc views &amp; Geneva lakeside.</div>
-      </div>
-
-      <!-- Central Europe -->
-      <div class="stop" style="top: 192px; left: 542px; background: #16a085;">
-        <div class="popover"><b>Mid June: Central</b><br>Austria, Hungary, Czechia, and Germany.</div>
-      </div>
-
-      <!-- Benelux -->
-      <div class="stop" style="top: 112px; left: 472px; background: #c0392b;">
-        <div class="popover"><b>Late June: Benelux</b><br>Amsterdam canals &amp; Belgian chocolate.</div>
-      </div>
-
-      <!-- UK -->
-      <div class="stop" style="top: 72px; left: 192px; background: #34495e;">
-        <div class="popover"><b>July 1: UK</b><br>London highlights and a road trip through the Scottish Highlands.</div>
-      </div>
-
-      <!-- Chihuahua Birthday -->
-      <div class="stop pulse" style="top: 312px; left: 772px; background: #c0392b; width: 28px; height: 28px; border: 3px solid gold;">
-        <div class="popover" style="left: auto; right: 40px; border-right: 4px solid gold;"><b>🎂 July 6: Chihuahua</b><br>The Grand Birthday. Tacos, history, and the Chepe Train journey.</div>
-      </div>
-
-      <div style="position: absolute; bottom: 20px; left: 100px; font-size: 10px; color: #95a5a6; letter-spacing: 5px; opacity: 0.5;">ATLANTIC OCEAN TRANSITION</div>
-
-    </div>
-
-    <div style="margin-top: 20px; display: flex; justify-content: space-between; font-size: 13px; color: #7f8c8d;">
+    <div class="card-footer">
       <span>🏁 Depart: May 1, 2027</span>
       <span>✈️ Trans-Atlantic: ~July 4</span>
       <span>🇲🇽 End: Aug 1, 2027</span>
     </div>
 
   </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // Initialize map centered on Europe/Atlantic
+    const map = L.map('map', {
+      center: [47, -10],
+      zoom: 4,
+      zoomControl: true,
+      scrollWheelZoom: true
+    });
+
+    // OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 18
+    }).addTo(map);
+
+    // --- Stop definitions ---
+    const stops = [
+      {
+        latlng: [38.72, -9.14],
+        color: '#27ae60',
+        pulse: false,
+        label: 'May 1: Start',
+        popup: '<b>May 1: Lisbon &amp; Porto</b><br>Fresh seafood and Fado music to kick off 2027.'
+      },
+      {
+        latlng: [37.39, -5.99],
+        color: '#f39c12',
+        pulse: false,
+        label: 'Early May: Spain',
+        popup: '<b>Early May: Spain</b><br>Seville, Jaén, and the rugged coast of Galicia &amp; Asturias.'
+      },
+      {
+        latlng: [42.51, 1.52],
+        color: '#e67e22',
+        pulse: false,
+        label: 'Mid May: Pyrenees',
+        popup: '<b>Mid May: The Pyrenees</b><br>Through Andorra into the wine estates of Bordeaux.'
+      },
+      {
+        latlng: [48.86, 2.35],
+        color: '#d81b60',
+        pulse: true,
+        label: '💍 May 29: Paris',
+        popup: '<b>💍 May 29: Paris</b><br>Anniversary #1. Deep museum dive (Louvre/Orsay).'
+      },
+      {
+        latlng: [45.75, 4.83],
+        color: '#8e44ad',
+        pulse: false,
+        label: 'Early June: SE France',
+        popup: '<b>Early June: SE France</b><br>Gastronomy in Lyon and the luxury of Monaco.'
+      },
+      {
+        latlng: [46.20, 6.15],
+        color: '#2980b9',
+        pulse: true,
+        label: '🥂 June 10: Switzerland',
+        popup: '<b>🥂 June 10: Switzerland</b><br>Anniversary #2. Mont Blanc views &amp; Geneva lakeside.'
+      },
+      {
+        latlng: [48.21, 16.37],
+        color: '#16a085',
+        pulse: false,
+        label: 'Mid June: Central Europe',
+        popup: '<b>Mid June: Central Europe</b><br>Austria, Hungary, Czechia, and Germany.'
+      },
+      {
+        latlng: [52.37, 4.90],
+        color: '#c0392b',
+        pulse: false,
+        label: 'Late June: Benelux',
+        popup: '<b>Late June: Benelux</b><br>Amsterdam canals &amp; Belgian chocolate.'
+      },
+      {
+        latlng: [55.95, -3.19],
+        color: '#34495e',
+        pulse: false,
+        label: 'July 1: UK / Scotland',
+        popup: '<b>July 1: UK</b><br>London highlights and a road trip through the Scottish Highlands.'
+      },
+      {
+        latlng: [28.63, -106.09],
+        color: '#c0392b',
+        pulse: true,
+        label: '🎂 July 6: Chihuahua',
+        popup: '<b>🎂 July 6: Chihuahua</b><br>The Grand Birthday. Tacos, history, and the Chepe Train journey.'
+      }
+    ];
+
+    // Route coordinates for the polyline + animated dot
+    const routeCoords = stops.map(s => s.latlng);
+
+    // Draw dashed route line
+    L.polyline(routeCoords, {
+      color: '#bc9c6c',
+      weight: 3,
+      dashArray: '10, 6',
+      lineJoin: 'round'
+    }).addTo(map);
+
+    // Draw stop markers
+    stops.forEach(stop => {
+      const size = stop.pulse ? 18 : 14;
+
+      // Circle marker
+      const marker = L.circleMarker(stop.latlng, {
+        radius: size / 2,
+        fillColor: stop.color,
+        color: 'white',
+        weight: 2,
+        fillOpacity: 1
+      }).addTo(map);
+
+      marker.bindPopup(stop.popup, { maxWidth: 240 });
+
+      // Pulse ring for special stops
+      if (stop.pulse) {
+        const pulseIcon = L.divIcon({
+          className: '',
+          html: `<div style="
+            width: ${size + 20}px;
+            height: ${size + 20}px;
+            border-radius: 50%;
+            border: 2px solid ${stop.color};
+            opacity: 0.5;
+            animation: pulse-ring 2s infinite;
+            margin: -${(size + 20) / 2}px 0 0 -${(size + 20) / 2}px;
+          "></div>`,
+          iconSize: [0, 0]
+        });
+        L.marker(stop.latlng, { icon: pulseIcon, interactive: false }).addTo(map);
+      }
+
+      // Floating label
+      const labelIcon = L.divIcon({
+        className: 'stop-label',
+        html: `<div style="
+          background: rgba(255,255,255,0.85);
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 11px;
+          font-weight: 600;
+          color: #2c3e50;
+          white-space: nowrap;
+          border-left: 3px solid ${stop.color};
+          box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        ">${stop.label}</div>`,
+        iconSize: [0, 0],
+        iconAnchor: [-12, 6]
+      });
+      L.marker(stop.latlng, { icon: labelIcon, interactive: false }).addTo(map);
+    });
+
+    // --- Animated traveling dot ---
+    const dotIcon = L.divIcon({
+      className: '',
+      html: '<div class="traveling-dot"></div>',
+      iconSize: [12, 12],
+      iconAnchor: [6, 6]
+    });
+
+    const travelingMarker = L.marker(routeCoords[0], {
+      icon: dotIcon,
+      interactive: false,
+      zIndexOffset: 1000
+    }).addTo(map);
+
+    // Animate along segments
+    let segmentIndex = 0;
+    let progress = 0;
+    const SPEED = 0.003; // fraction of segment per frame
+
+    function animate() {
+      if (routeCoords.length < 2) return;
+
+      const from = routeCoords[segmentIndex];
+      const to = routeCoords[(segmentIndex + 1) % routeCoords.length];
+
+      const lat = from[0] + (to[0] - from[0]) * progress;
+      const lng = from[1] + (to[1] - from[1]) * progress;
+      travelingMarker.setLatLng([lat, lng]);
+
+      progress += SPEED;
+      if (progress >= 1) {
+        progress = 0;
+        segmentIndex = (segmentIndex + 1) % (routeCoords.length - 1);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
+  <style>
+    @keyframes pulse-ring {
+      0%   { transform: scale(1); opacity: 0.6; }
+      70%  { transform: scale(1.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+  </style>
 </body>
 </html>
