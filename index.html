@@ -130,7 +130,7 @@
   <script>
     // Initialize map centered on Europe/Atlantic
     const map = L.map('map', {
-      center: [47, -10],
+      center: [48, 5],
       zoom: 4,
       zoomControl: true,
       scrollWheelZoom: true
@@ -144,75 +144,192 @@
 
     // --- Stop definitions ---
     const stops = [
+      // ── PORTUGAL ──
       {
         latlng: [38.72, -9.14],
-        color: '#27ae60',
+        color: '#1e8449',
         pulse: false,
-        label: 'May 1: Start',
-        popup: '<b>May 1: Lisbon &amp; Porto</b><br>Fresh seafood and Fado music to kick off 2027.'
+        label: '🇵🇹 Lisbon',
+        popup: '<b>🇵🇹 Lisbon — May 1: Start</b><br>Alfama district, Fado music, pastéis de nata, and the Belém Tower.'
       },
       {
-        latlng: [37.39, -5.99],
-        color: '#f39c12',
+        latlng: [41.15, -8.61],
+        color: '#1e8449',
         pulse: false,
-        label: 'Early May: Spain',
-        popup: '<b>Early May: Spain</b><br>Seville, Jaén, and the rugged coast of Galicia &amp; Asturias.'
+        label: '🇵🇹 Porto',
+        popup: '<b>🇵🇹 Porto</b><br>Port wine cellars, the Douro riverfront, and Livraria Lello bookshop.'
+      },
+      // ── SPAIN ──
+      {
+        latlng: [42.88, -8.54],
+        color: '#d4ac0d',
+        pulse: false,
+        label: '🇪🇸 Galicia',
+        popup: '<b>🇪🇸 Galicia — Santiago de Compostela</b><br>End of the Camino pilgrimage route and stunning Atlantic coastline.'
+      },
+      {
+        latlng: [43.36, -5.84],
+        color: '#d4ac0d',
+        pulse: false,
+        label: '🇪🇸 Asturias',
+        popup: '<b>🇪🇸 Asturias — Oviedo</b><br>Rugged Picos de Europa mountains and some of the freshest sidra in Spain.'
+      },
+      {
+        latlng: [43.32, -1.98],
+        color: '#d4ac0d',
+        pulse: false,
+        label: '🇪🇸 San Sebastián',
+        popup: '<b>🇪🇸 San Sebastián</b><br>World-renowned pintxos bars and one of Europe\'s most beautiful beaches.'
       },
       {
         latlng: [42.51, 1.52],
-        color: '#e67e22',
+        color: '#d4ac0d',
         pulse: false,
-        label: 'Mid May: Pyrenees',
-        popup: '<b>Mid May: The Pyrenees</b><br>Through Andorra into the wine estates of Bordeaux.'
+        label: '🇦🇩 Andorra',
+        popup: '<b>🇦🇩 Andorra la Vella</b><br>Tiny mountain microstate nestled in the Pyrenees — duty-free shopping and ski runs.'
+      },
+      {
+        latlng: [37.77, -3.79],
+        color: '#d4ac0d',
+        pulse: false,
+        label: '🇪🇸 Jaén',
+        popup: '<b>🇪🇸 Jaén</b><br>Endless olive groves and a stunning Renaissance cathedral in the heart of Andalusia.'
+      },
+      {
+        latlng: [37.39, -5.99],
+        color: '#d4ac0d',
+        pulse: false,
+        label: '🇪🇸 Seville',
+        popup: '<b>🇪🇸 Seville</b><br>Flamenco, the grand Alcázar palace, and unforgettable tapas in the old town.'
+      },
+      // ── FRANCE ──
+      {
+        latlng: [44.84, -0.58],
+        color: '#1a5276',
+        pulse: false,
+        label: '🇫🇷 Bordeaux',
+        popup: '<b>🇫🇷 Bordeaux</b><br>World-class wine estates, the Cité du Vin museum, and elegant 18th-century architecture.'
       },
       {
         latlng: [48.86, 2.35],
         color: '#d81b60',
         pulse: true,
-        label: '💍 May 29: Paris',
-        popup: '<b>💍 May 29: Paris</b><br>Anniversary #1. Deep museum dive (Louvre/Orsay).'
+        label: '💍 Paris',
+        popup: '<b>💍 Paris — Anniversary #1</b><br>Louvre, Musée d\'Orsay, anniversary dinner at Le Jules Verne atop the Eiffel Tower.'
       },
       {
         latlng: [45.75, 4.83],
-        color: '#8e44ad',
+        color: '#1a5276',
         pulse: false,
-        label: 'Early June: SE France',
-        popup: '<b>Early June: SE France</b><br>Gastronomy in Lyon and the luxury of Monaco.'
+        label: '🇫🇷 Lyon',
+        popup: '<b>🇫🇷 Lyon</b><br>Gastronomic capital of France — traditional bouchons, silk history, and Roman ruins.'
       },
+      {
+        latlng: [43.73, 7.41],
+        color: '#1a5276',
+        pulse: false,
+        label: '🇲🇨 Monaco',
+        popup: '<b>🇲🇨 Monaco</b><br>Casino de Monte-Carlo, the Formula 1 circuit, and the Prince\'s Palace perched on the Rock.'
+      },
+      // ── SWITZERLAND ──
       {
         latlng: [46.20, 6.15],
         color: '#2980b9',
         pulse: true,
-        label: '🥂 June 10: Switzerland',
-        popup: '<b>🥂 June 10: Switzerland</b><br>Anniversary #2. Mont Blanc views &amp; Geneva lakeside.'
+        label: '🥂 Geneva',
+        popup: '<b>🥂 Geneva — Anniversary #2</b><br>Lake Geneva promenade, the Jet d\'Eau, and world-class watchmaking heritage.'
+      },
+      {
+        latlng: [45.92, 6.87],
+        color: '#2980b9',
+        pulse: false,
+        label: '🇨🇭 Mont Blanc',
+        popup: '<b>🇨🇭 Mont Blanc / Chamonix</b><br>Highest peak in the Alps — glacier views, the Aiguille du Midi, and mountain air.'
+      },
+      {
+        latlng: [47.38, 8.54],
+        color: '#2980b9',
+        pulse: false,
+        label: '🇨🇭 Zurich',
+        popup: '<b>🇨🇭 Zurich</b><br>Pristine lake, old town Niederdorf quarter, and Switzerland\'s vibrant cultural scene.'
+      },
+      // ── AUSTRIA ──
+      {
+        latlng: [47.80, 13.04],
+        color: '#e74c3c',
+        pulse: false,
+        label: '🇦🇹 Salzburg',
+        popup: '<b>🇦🇹 Salzburg</b><br>Birthplace of Mozart, the Sound of Music country, and a stunning baroque old town.'
       },
       {
         latlng: [48.21, 16.37],
+        color: '#e74c3c',
+        pulse: false,
+        label: '🇦🇹 Vienna',
+        popup: '<b>🇦🇹 Vienna</b><br>Habsburg palaces, Klimt at the Belvedere, Sachertorte, and grand coffeehouses.'
+      },
+      // ── HUNGARY ──
+      {
+        latlng: [47.50, 19.04],
+        color: '#8e44ad',
+        pulse: false,
+        label: '🇭🇺 Budapest',
+        popup: '<b>🇭🇺 Budapest</b><br>Parliament on the Danube, thermal baths, ruin bars in the Jewish Quarter.'
+      },
+      // ── CZECHIA ──
+      {
+        latlng: [50.08, 14.44],
         color: '#16a085',
         pulse: false,
-        label: 'Mid June: Central Europe',
-        popup: '<b>Mid June: Central Europe</b><br>Austria, Hungary, Czechia, and Germany.'
+        label: '🇨🇿 Prague',
+        popup: '<b>🇨🇿 Prague</b><br>Medieval Old Town Square, the Astronomical Clock, and excellent Czech pilsner.'
       },
+      // ── GERMANY ──
+      {
+        latlng: [52.52, 13.40],
+        color: '#566573',
+        pulse: false,
+        label: '🇩🇪 Berlin',
+        popup: '<b>🇩🇪 Berlin</b><br>The Brandenburg Gate, East Side Gallery, world-class museums on Museum Island.'
+      },
+      // ── NETHERLANDS ──
       {
         latlng: [52.37, 4.90],
-        color: '#c0392b',
+        color: '#e67e22',
         pulse: false,
-        label: 'Late June: Benelux',
-        popup: '<b>Late June: Benelux</b><br>Amsterdam canals &amp; Belgian chocolate.'
+        label: '🇳🇱 Amsterdam',
+        popup: '<b>🇳🇱 Amsterdam</b><br>Canal ring, the Rijksmuseum, Van Gogh Museum, and golden-age architecture.'
       },
+      // ── BELGIUM ──
       {
-        latlng: [55.95, -3.19],
+        latlng: [50.85, 4.35],
+        color: '#f39c12',
+        pulse: false,
+        label: '🇧🇪 Brussels',
+        popup: '<b>🇧🇪 Brussels</b><br>Grand-Place, Belgian waffles, world-famous chocolate, and the Atomium.'
+      },
+      // ── UK ──
+      {
+        latlng: [51.51, -0.13],
         color: '#34495e',
         pulse: false,
-        label: 'July 1: UK / Scotland',
-        popup: '<b>July 1: UK</b><br>London highlights and a road trip through the Scottish Highlands.'
+        label: '🇬🇧 London',
+        popup: '<b>🇬🇧 London</b><br>British Museum, Tate Modern, Borough Market, and the Tower of London.'
       },
+      {
+        latlng: [57.48, -4.22],
+        color: '#34495e',
+        pulse: false,
+        label: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scottish Highlands',
+        popup: '<b>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scottish Highlands</b><br>Glenfinnan Viaduct, Loch Ness, and the dramatic peaks of Glen Coe.'
+      },
+      // ── MEXICO ──
       {
         latlng: [28.63, -106.09],
         color: '#c0392b',
         pulse: true,
-        label: '🎂 July 6: Chihuahua',
-        popup: '<b>🎂 July 6: Chihuahua</b><br>The Grand Birthday. Tacos, history, and the Chepe Train journey.'
+        label: '🎂 Chihuahua',
+        popup: '<b>🎂 July 6: Chihuahua — The Grand Birthday</b><br>Traditional feast, the Chepe Express to the Copper Canyon rim.'
       }
     ];
 
