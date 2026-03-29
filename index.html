@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Summer '26 Exploration</title>
+  <style>
+    body {
+      font-family: 'Trebuchet MS', sans-serif;
+      background: #f4f1ea;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: #f4f1ea;
+      padding: 30px;
+      border-radius: 20px;
+      border: 3px solid #bc9c6c;
+      color: #3d3028;
+      max-width: 900px;
+      width: 100%;
+      margin: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .card-header h1 {
+      margin: 0;
+      color: #5d4037;
+      letter-spacing: 1px;
+    }
+
+    .card-header p {
+      margin: 5px 0;
+      color: #8d6e63;
+      font-style: italic;
+    }
+
+    .map-container {
+      position: relative;
+      width: 100%;
+      height: 450px;
+      background: #d0e8f2;
+      border-radius: 15px;
+      border: 1px solid #a5c7d6;
+      background-image: radial-gradient(#ffffff 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .map-node {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid white;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 5;
+    }
+
+    .map-node:hover {
+      transform: scale(1.4);
+      z-index: 10;
+    }
+
+    .label {
+      position: absolute;
+      bottom: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 11px;
+      background: rgba(255,255,255,0.8);
+      padding: 2px 5px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .info-card {
+      visibility: hidden;
+      opacity: 0;
+      width: 240px;
+      background: white;
+      position: absolute;
+      bottom: 35px;
+      left: -110px;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translateY(10px);
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .info-card h3 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .info-card p {
+      margin: 5px 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #666;
+    }
+
+    .map-node:hover .info-card {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pulse {
+      animation: shadow-pulse 2s infinite;
+    }
+
+    @keyframes shadow-pulse {
+      0%   { box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2); }
+      70%  { box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); }
+      100% { box-shadow: 0 0 0 0px rgba(0, 0, 0, 0); }
+    }
+
+    .phases {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+
+    .phase {
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #bc9c6c;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <div class="card-header">
+      <h1>SUMMER '26 EXPLORATION</h1>
+      <p>From the Museums of Paris to the Canyons of Chihuahua</p>
+    </div>
+
+    <div class="map-container">
+
+      <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
+        <path d="M 80 280 Q 150 350 200 250 T 350 180 T 500 120 T 650 250"
+              fill="none" stroke="#bc9c6c" stroke-width="3" stroke-dasharray="8,8" />
+      </svg>
+
+      <!-- START: Portugal & Spain -->
+      <div class="map-node" style="top: 270px; left: 60px; background: #4caf50;">
+        <span class="label">START: MAY 1</span>
+        <div class="info-card">
+          <h3>🇵🇹 Portugal &amp; 🇪🇸 Spain</h3>
+          <p><b>Focus:</b> Galicia &amp; Seville.</p>
+          <p><i>Must Do:</i> Sunset dinner in the Alfama district, Lisbon.</p>
+        </div>
+      </div>
+
+      <!-- Paris Anniversary -->
+      <div class="map-node pulse" style="top: 220px; left: 220px; background: #d81b60; width: 25px; height: 25px;">
+        <span class="label" style="font-weight: bold; color: #d81b60;">MAY 29: PARIS</span>
+        <div class="info-card" style="border-top: 5px solid #d81b60;">
+          <h3>💍 Anniversary #1: Paris</h3>
+          <p><b>Morning:</b> Private Louvre tour before crowds.</p>
+          <p><b>Evening:</b> Anniversary dinner at <i>Le Jules Verne</i> (Eiffel Tower).</p>
+        </div>
+      </div>
+
+      <!-- Alps Anniversary -->
+      <div class="map-node pulse" style="top: 170px; left: 340px; background: #1976d2; width: 25px; height: 25px;">
+        <span class="label" style="font-weight: bold; color: #1976d2;">JUNE 10: ALPS</span>
+        <div class="info-card" style="border-top: 5px solid #1976d2;">
+          <h3>🥂 Anniversary #2: Switzerland</h3>
+          <p><b>Location:</b> Interlaken or Mont Blanc.</p>
+          <p><b>Idea:</b> Glacier helicopter tour and mountain-top champagne toast.</p>
+        </div>
+      </div>
+
+      <!-- Central Europe Loop -->
+      <div class="map-node" style="top: 100px; left: 450px; background: #7b1fa2;">
+        <span class="label">MID-JUNE LOOP</span>
+        <div class="info-card">
+          <h3>🏰 Central Europe</h3>
+          <p><b>Cities:</b> Prague, Vienna, Budapest, Berlin.</p>
+          <p><i>Tip:</i> Take the sleeper train between Prague and Zurich for a classic experience.</p>
+        </div>
+      </div>
+
+      <!-- Scotland Finale -->
+      <div class="map-node" style="top: 80px; left: 180px; background: #455a64;">
+        <span class="label">JULY 1: UK</span>
+        <div class="info-card">
+          <h3>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland Finale</h3>
+          <p><b>The Highlands:</b> Glenfinnan Viaduct.</p>
+          <p><b>Transit:</b> Direct flight from Edinburgh to North America.</p>
+        </div>
+      </div>
+
+      <!-- Birthday - Chihuahua -->
+      <div class="map-node pulse" style="top: 280px; left: 700px; background: #e64a19; width: 30px; height: 30px;">
+        <span class="label" style="font-weight: bold; color: #e64a19; font-size: 14px;">JULY 6: BIRTHDAY</span>
+        <div class="info-card" style="border-top: 5px solid #e64a19; right: 0; left: auto;">
+          <h3>🎂 The Big Celebration</h3>
+          <p><b>Chihuahua City:</b> Traditional feast at <i>La Casona</i>.</p>
+          <p><b>The Adventure:</b> Boarding the Chepe Express to the Copper Canyon rim.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="phases">
+      <div class="phase"><b>Phase 1</b><br>Iberian Sun</div>
+      <div class="phase"><b>Phase 2</b><br>European Culture</div>
+      <div class="phase"><b>Phase 3</b><br>Mexican High-Desert</div>
+    </div>
+
+  </div>
+</body>
+</html>
