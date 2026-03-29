@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Summer '26 Exploration</title>
+  <title>Summer 2027 Expedition</title>
   <style>
     body {
-      font-family: 'Trebuchet MS', sans-serif;
-      background: #f4f1ea;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #fdfaf5;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -17,219 +17,136 @@
       box-sizing: border-box;
     }
 
-    .card {
-      background: #f4f1ea;
-      padding: 30px;
-      border-radius: 20px;
-      border: 3px solid #bc9c6c;
-      color: #3d3028;
-      max-width: 900px;
-      width: 100%;
-      margin: auto;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-      overflow: hidden;
-    }
-
-    .card-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .card-header h1 {
-      margin: 0;
-      color: #5d4037;
-      letter-spacing: 1px;
-    }
-
-    .card-header p {
-      margin: 5px 0;
-      color: #8d6e63;
-      font-style: italic;
-    }
-
-    .map-container {
-      position: relative;
-      width: 100%;
-      height: 450px;
-      background: #d0e8f2;
-      border-radius: 15px;
-      border: 1px solid #a5c7d6;
-      background-image: radial-gradient(#ffffff 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-
-    .map-node {
+    .stop {
       position: absolute;
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      cursor: pointer;
       border: 2px solid white;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 5;
-    }
-
-    .map-node:hover {
-      transform: scale(1.4);
+      cursor: pointer;
       z-index: 10;
+      transition: transform 0.2s ease;
     }
 
-    .label {
-      position: absolute;
-      bottom: -22px;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      font-size: 11px;
-      background: rgba(255,255,255,0.8);
-      padding: 2px 5px;
-      border-radius: 4px;
-      pointer-events: none;
+    .stop:hover {
+      transform: scale(1.4);
     }
 
-    .info-card {
+    .popover {
       visibility: hidden;
-      opacity: 0;
-      width: 240px;
+      width: 220px;
       background: white;
-      position: absolute;
-      bottom: 35px;
-      left: -110px;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      transform: translateY(10px);
-      z-index: 20;
-      pointer-events: none;
-    }
-
-    .info-card h3 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
       color: #333;
-    }
-
-    .info-card p {
-      margin: 5px 0;
+      padding: 12px;
+      border-radius: 8px;
+      position: absolute;
+      left: 30px;
+      top: -20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      z-index: 100;
       font-size: 13px;
       line-height: 1.4;
-      color: #666;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
-    .map-node:hover .info-card {
+    .stop:hover .popover {
       visibility: visible;
       opacity: 1;
-      transform: translateY(0);
     }
 
     .pulse {
-      animation: shadow-pulse 2s infinite;
+      animation: pulse-ring 2s infinite;
     }
 
-    @keyframes shadow-pulse {
-      0%   { box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2); }
-      70%  { box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); }
-      100% { box-shadow: 0 0 0 0px rgba(0, 0, 0, 0); }
-    }
-
-    .phases {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      text-align: center;
-    }
-
-    .phase {
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #bc9c6c;
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(188, 156, 108, 0.7); }
+      70%  { box-shadow: 0 0 0 15px rgba(188, 156, 108, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(188, 156, 108, 0); }
     }
   </style>
 </head>
 <body>
-  <div class="card">
+  <div style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #fdfaf5; padding: 40px 20px; border-radius: 15px; border: 1px solid #e0d7c6; color: #4a4238; max-width: 950px; width: 100%; margin: auto; box-shadow: 0 15px 40px rgba(0,0,0,0.12);">
 
-    <div class="card-header">
-      <h1>SUMMER '26 EXPLORATION</h1>
-      <p>From the Museums of Paris to the Canyons of Chihuahua</p>
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h2 style="margin: 0; color: #2c3e50; text-transform: uppercase; letter-spacing: 3px;">Summer 2027 Expedition</h2>
+      <div style="width: 60px; height: 3px; background: #bc9c6c; margin: 10px auto;"></div>
+      <p style="color: #7f8c8d;">May 1st — August 1st, 2027</p>
     </div>
 
-    <div class="map-container">
+    <div style="position: relative; width: 100%; height: 500px; background: #f0f7f9; border-radius: 12px; border: 1px solid #d1e1e8; overflow: hidden;">
 
-      <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
-        <path d="M 80 280 Q 150 350 200 250 T 350 180 T 500 120 T 650 250"
-              fill="none" stroke="#bc9c6c" stroke-width="3" stroke-dasharray="8,8" />
+      <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 1;">
+        <path id="travelPath" d="M 60 380 L 110 370 L 180 320 L 260 260 L 340 230 L 450 180 L 550 200 L 480 120 L 200 80 L 180 120 C 300 250 500 450 780 320"
+              fill="none" stroke="#bc9c6c" stroke-width="3" stroke-dasharray="10,5" stroke-linecap="round" />
+
+        <circle r="5" fill="#d81b60">
+          <animateMotion dur="15s" repeatCount="indefinite">
+            <mpath href="#travelPath" />
+          </animateMotion>
+        </circle>
       </svg>
 
-      <!-- START: Portugal & Spain -->
-      <div class="map-node" style="top: 270px; left: 60px; background: #4caf50;">
-        <span class="label">START: MAY 1</span>
-        <div class="info-card">
-          <h3>🇵🇹 Portugal &amp; 🇪🇸 Spain</h3>
-          <p><b>Focus:</b> Galicia &amp; Seville.</p>
-          <p><i>Must Do:</i> Sunset dinner in the Alfama district, Lisbon.</p>
-        </div>
+      <!-- Lisbon & Porto -->
+      <div class="stop" style="top: 372px; left: 52px; background: #27ae60;">
+        <div class="popover"><b>May 1: Start</b><br>Lisbon &amp; Porto. Fresh seafood and Fado music to kick off 2027.</div>
+      </div>
+
+      <!-- Spain -->
+      <div class="stop" style="top: 362px; left: 102px; background: #f39c12;">
+        <div class="popover"><b>Early May: Spain</b><br>Seville, Jaén, and the rugged coast of Galicia &amp; Asturias.</div>
+      </div>
+
+      <!-- Pyrenees -->
+      <div class="stop" style="top: 312px; left: 172px; background: #e67e22;">
+        <div class="popover"><b>Mid May: The Pyrenees</b><br>Through Andorra into the wine estates of Bordeaux.</div>
       </div>
 
       <!-- Paris Anniversary -->
-      <div class="map-node pulse" style="top: 220px; left: 220px; background: #d81b60; width: 25px; height: 25px;">
-        <span class="label" style="font-weight: bold; color: #d81b60;">MAY 29: PARIS</span>
-        <div class="info-card" style="border-top: 5px solid #d81b60;">
-          <h3>💍 Anniversary #1: Paris</h3>
-          <p><b>Morning:</b> Private Louvre tour before crowds.</p>
-          <p><b>Evening:</b> Anniversary dinner at <i>Le Jules Verne</i> (Eiffel Tower).</p>
-        </div>
+      <div class="stop pulse" style="top: 252px; left: 252px; background: #d81b60; width: 22px; height: 22px;">
+        <div class="popover" style="border-left: 4px solid #d81b60;"><b>💍 May 29: Paris</b><br>Anniversary #1. Deep museum dive (Louvre/Orsay).</div>
       </div>
 
-      <!-- Alps Anniversary -->
-      <div class="map-node pulse" style="top: 170px; left: 340px; background: #1976d2; width: 25px; height: 25px;">
-        <span class="label" style="font-weight: bold; color: #1976d2;">JUNE 10: ALPS</span>
-        <div class="info-card" style="border-top: 5px solid #1976d2;">
-          <h3>🥂 Anniversary #2: Switzerland</h3>
-          <p><b>Location:</b> Interlaken or Mont Blanc.</p>
-          <p><b>Idea:</b> Glacier helicopter tour and mountain-top champagne toast.</p>
-        </div>
+      <!-- SE France -->
+      <div class="stop" style="top: 222px; left: 332px; background: #8e44ad;">
+        <div class="popover"><b>Early June: SE France</b><br>Gastronomy in Lyon and the luxury of Monaco.</div>
       </div>
 
-      <!-- Central Europe Loop -->
-      <div class="map-node" style="top: 100px; left: 450px; background: #7b1fa2;">
-        <span class="label">MID-JUNE LOOP</span>
-        <div class="info-card">
-          <h3>🏰 Central Europe</h3>
-          <p><b>Cities:</b> Prague, Vienna, Budapest, Berlin.</p>
-          <p><i>Tip:</i> Take the sleeper train between Prague and Zurich for a classic experience.</p>
-        </div>
+      <!-- Switzerland Anniversary -->
+      <div class="stop pulse" style="top: 172px; left: 442px; background: #2980b9; width: 22px; height: 22px;">
+        <div class="popover" style="border-left: 4px solid #2980b9;"><b>🥂 June 10: Switzerland</b><br>Anniversary #2. Mont Blanc views &amp; Geneva lakeside.</div>
       </div>
 
-      <!-- Scotland Finale -->
-      <div class="map-node" style="top: 80px; left: 180px; background: #455a64;">
-        <span class="label">JULY 1: UK</span>
-        <div class="info-card">
-          <h3>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland Finale</h3>
-          <p><b>The Highlands:</b> Glenfinnan Viaduct.</p>
-          <p><b>Transit:</b> Direct flight from Edinburgh to North America.</p>
-        </div>
+      <!-- Central Europe -->
+      <div class="stop" style="top: 192px; left: 542px; background: #16a085;">
+        <div class="popover"><b>Mid June: Central</b><br>Austria, Hungary, Czechia, and Germany.</div>
       </div>
 
-      <!-- Birthday - Chihuahua -->
-      <div class="map-node pulse" style="top: 280px; left: 700px; background: #e64a19; width: 30px; height: 30px;">
-        <span class="label" style="font-weight: bold; color: #e64a19; font-size: 14px;">JULY 6: BIRTHDAY</span>
-        <div class="info-card" style="border-top: 5px solid #e64a19; right: 0; left: auto;">
-          <h3>🎂 The Big Celebration</h3>
-          <p><b>Chihuahua City:</b> Traditional feast at <i>La Casona</i>.</p>
-          <p><b>The Adventure:</b> Boarding the Chepe Express to the Copper Canyon rim.</p>
-        </div>
+      <!-- Benelux -->
+      <div class="stop" style="top: 112px; left: 472px; background: #c0392b;">
+        <div class="popover"><b>Late June: Benelux</b><br>Amsterdam canals &amp; Belgian chocolate.</div>
       </div>
+
+      <!-- UK -->
+      <div class="stop" style="top: 72px; left: 192px; background: #34495e;">
+        <div class="popover"><b>July 1: UK</b><br>London highlights and a road trip through the Scottish Highlands.</div>
+      </div>
+
+      <!-- Chihuahua Birthday -->
+      <div class="stop pulse" style="top: 312px; left: 772px; background: #c0392b; width: 28px; height: 28px; border: 3px solid gold;">
+        <div class="popover" style="left: auto; right: 40px; border-right: 4px solid gold;"><b>🎂 July 6: Chihuahua</b><br>The Grand Birthday. Tacos, history, and the Chepe Train journey.</div>
+      </div>
+
+      <div style="position: absolute; bottom: 20px; left: 100px; font-size: 10px; color: #95a5a6; letter-spacing: 5px; opacity: 0.5;">ATLANTIC OCEAN TRANSITION</div>
 
     </div>
 
-    <div class="phases">
-      <div class="phase"><b>Phase 1</b><br>Iberian Sun</div>
-      <div class="phase"><b>Phase 2</b><br>European Culture</div>
-      <div class="phase"><b>Phase 3</b><br>Mexican High-Desert</div>
+    <div style="margin-top: 20px; display: flex; justify-content: space-between; font-size: 13px; color: #7f8c8d;">
+      <span>🏁 Depart: May 1, 2027</span>
+      <span>✈️ Trans-Atlantic: ~July 4</span>
+      <span>🇲🇽 End: Aug 1, 2027</span>
     </div>
 
   </div>
